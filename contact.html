@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Bench</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #f9f9f9 0%, #ffe0ec 100%);
+        min-height: 100vh;
+    }
+    header {
+        background: linear-gradient(90deg, #ffb6c1 0%, #ff69b4 100%);
+        color: #fff;
+        padding: 2rem 0 1rem 0;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(255, 182, 193, 0.2);
+    }
+    header h1 {
+        font-size: 2.5rem;
+        margin: 0;
+        letter-spacing: 2px;
+        font-weight: bold;
+        text-shadow: 1px 2px 8px #fff5;
+    }
+    nav {
+        background: #444;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+    nav ul li {
+        margin: 0;
+    }
+    nav ul li a {
+        display: block;
+        padding: 1rem 1.5rem;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.2s, color 0.2s;
+    }
+    nav ul li a:hover, nav ul li a.active {
+        background: #ffb6c1;
+        color: #222;
+    }
+    main {
+        padding: 2rem;
+        max-width: 600px;
+        margin: 2.5rem auto;
+        background: #fff;
+        box-shadow: 0 4px 24px rgba(255,182,193,0.15);
+        border-radius: 16px;
+    }
+    h2 {
+        text-align: center;
+        color: #d72660;
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        margin: 0.5rem 0 0.2rem;
+        font-weight: bold;
+        color: #d72660;
+    }
+    input, textarea {
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ffd6e0;
+        border-radius: 6px;
+        font-size: 1rem;
+        background: #fff6fa;
+        transition: border 0.2s;
+    }
+    input:focus, textarea:focus {
+        border: 1.5px solid #ff69b4;
+        outline: none;
+    }
+    button {
+        padding: 0.8rem;
+        background: linear-gradient(90deg, #ffb6c1 0%, #ff69b4 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 2px 8px #ffd6e055;
+        transition: background 0.2s, color 0.2s, transform 0.2s;
+        letter-spacing: 1px;
+    }
+    button:hover {
+        background: #d72660;
+        color: #fff;
+        transform: scale(1.04);
+    }
+    footer {
+        background-color: #222;
+        color: #fff;
+        text-align: center;
+        padding: 1rem 0;
+        margin-top: 2rem;
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+    @media (max-width: 700px) {
+        main {
+            padding: 1rem 0.5rem;
+        }
+        h2 {
+            font-size: 1.3rem;
+        }
+    }
+</style>
+</head>
+<body>
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+<nav>
+    <ul>
+        <li id="login-link"><a href="#" onclick="showLoginForm()">Login</a></li>
+<li id="create-link"><a href="#" onclick="showCreateForm()">Create Account</a></li>
+<li id="user-display" style="display:none; color:#d72660; font-weight:bold; align-items:center;"></li>
+<li id="logout-link" style="display:none;"><a href="#" onclick="logout()">Logout</a></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+            <li><a href="orders.html">My Orders</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</nav>
+    <main>
+        <div id="login-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:1000;">
+    <div style="background:#fff; max-width:350px; margin:10% auto; padding:2rem; border-radius:12px; box-shadow:0 4px 24px #ffd6e055; position:relative;">
+        <h2 style="color:#d72660;">Login</h2>
+        <input id="login-username" type="text" placeholder="Username" style="width:100%;padding:0.7rem;margin-bottom:1rem;border:1px solid #ffd6e0;border-radius:6px;">
+        <input id="login-password" type="password" placeholder="Password" style="width:100%;padding:0.7rem;margin-bottom:1rem;border:1px solid #ffd6e0;border-radius:6px;">
+        <button onclick="login()" style="width:100%;padding:0.7rem;background:linear-gradient(90deg,#ffb6c1 0%,#ff69b4 100%);color:#fff;border:none;border-radius:8px;font-weight:bold;">Login</button>
+        <button onclick="hideLoginForm()" style="width:100%;padding:0.7rem;margin-top:0.5rem;background:#eee;color:#d72660;border:none;border-radius:8px;">Cancel</button>
+        <div id="login-error" style="color:#e74c3c; margin-top:0.5rem; text-align:center;"></div>
+    </div>
+</div>
+<div id="create-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:1000;">
+    <div style="background:#fff; max-width:350px; margin:10% auto; padding:2rem; border-radius:12px; box-shadow:0 4px 24px #ffd6e055; position:relative;">
+        <h2 style="color:#d72660;">Create Account</h2>
+        <input id="create-username" type="text" placeholder="Username" style="width:100%;padding:0.7rem;margin-bottom:1rem;border:1px solid #ffd6e0;border-radius:6px;">
+        <input id="create-password" type="password" placeholder="Password" style="width:100%;padding:0.7rem;margin-bottom:1rem;border:1px solid #ffd6e0;border-radius:6px;">
+        <button onclick="createAccount()" style="width:100%;padding:0.7rem;background:linear-gradient(90deg,#ffb6c1 0%,#ff69b4 100%);color:#fff;border:none;border-radius:8px;font-weight:bold;">Create Account</button>
+        <button onclick="hideCreateForm()" style="width:100%;padding:0.7rem;margin-top:0.5rem;background:#eee;color:#d72660;border:none;border-radius:8px;">Cancel</button>
+        <div id="create-error" style="color:#e74c3c; margin-top:0.5rem; text-align:center;"></div>
+    </div>
+</div>
+        <h2>We'd love to hear from you!</h2>
+        <form action="#" method="post">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your email" required>
+            
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+            
+            <button type="submit">Send Message</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025 Bench. All Rights Reserved.</p>
+    </footer>
+    <script>
+function showLoginForm() {
+    document.getElementById('login-modal').style.display = 'block';
+}
+function hideLoginForm() {
+    document.getElementById('login-modal').style.display = 'none';
+    document.getElementById('login-error').textContent = '';
+}
+function showCreateForm() {
+    document.getElementById('create-modal').style.display = 'block';
+}
+function hideCreateForm() {
+    document.getElementById('create-modal').style.display = 'none';
+    document.getElementById('create-error').textContent = '';
+}
+function login() {
+    const username = document.getElementById('login-username').value.trim();
+    const password = document.getElementById('login-password').value;
+    const users = JSON.parse(localStorage.getItem('users') || '{}');
+    if (users[username] && users[username] === password) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('currentUser', username);
+        hideLoginForm();
+        updateAuthLinks();
+    } else {
+        document.getElementById('login-error').textContent = 'Invalid username or password.';
+    }
+}
+function logout() {
+    if (confirm('Do you want to logout?')) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        updateAuthLinks();
+    }
+}
+function createAccount() {
+    const username = document.getElementById('create-username').value.trim();
+    const password = document.getElementById('create-password').value;
+    let users = JSON.parse(localStorage.getItem('users') || '{}');
+    if (!username || !password) {
+        document.getElementById('create-error').textContent = 'Please enter a username and password.';
+        return;
+    }
+    if (users[username]) {
+        document.getElementById('create-error').textContent = 'Username already exists.';
+        return;
+    }
+    users[username] = password;
+    localStorage.setItem('users', JSON.stringify(users));
+    document.getElementById('create-error').textContent = 'Account created! You can now log in.';
+    setTimeout(() => {
+        hideCreateForm();
+        showLoginForm();
+    }, 1200);
+}
+function updateAuthLinks() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const username = localStorage.getItem('currentUser') || '';
+    document.getElementById('login-link').style.display = isLoggedIn ? 'none' : '';
+    document.getElementById('create-link').style.display = isLoggedIn ? 'none' : '';
+    document.getElementById('logout-link').style.display = isLoggedIn ? '' : 'none';
+    const userDisplay = document.getElementById('user-display');
+    if (isLoggedIn && username) {
+        userDisplay.style.display = '';
+        userDisplay.textContent = `👤 ${username}`;
+    } else {
+        userDisplay.style.display = 'none';
+        userDisplay.textContent = '';
+    }
+}
+updateAuthLinks();
+</script>
+</body>
+</html>
